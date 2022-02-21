@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Anime Name</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Global Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for nam in name %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{nam}}</td>
+                <td>{{genre[loop.index -1]}}</td>
+                <td>{{rate[loop.index -1]}}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock body %}

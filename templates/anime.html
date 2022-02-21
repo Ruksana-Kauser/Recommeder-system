@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+<form action="/anime" method="POST">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"><h2><I>Name of the Anime</I></h2></label>
+      <input type="text" class="form-control" required name="input" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="btn btn-primary"><I>Fetch</I></button>
+  </form>
+</div>
+{% if ll|length > 5 %}
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Anime Name</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Global Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for c in ll %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{c}}</td>
+                <td>{{gg[loop.index -1]}}</td>
+                <td>{{r[loop.index -1]}}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% else %}
+    {% if ll|length > 1 %}
+    <div class="alert alert-dark" role="alert">
+        A simple dark alert—check it out!
+    </div>
+    {% endif %}
+
+{% endif %}
+
+{% endblock body %}
+
