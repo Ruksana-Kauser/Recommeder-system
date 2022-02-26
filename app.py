@@ -15,7 +15,7 @@ def anime():
         a = request.form["input"]
         
         if len(checker(a)) > 4:    
-            b = recommender(a,11)
+            b = recommender(a)
             genre = genre_recommender(a,11)
             rating = rating_recommender(a,11)
             return render_template("anime.html",ll = b, gg = genre, r = rating)

@@ -6,36 +6,57 @@ from sklearn.metrics.pairwise import linear_kernel #distance calculation
 data = pd.read_csv('anime_new')
 data.genre.fillna(" ",inplace=True) #filling null values with space
 
-initialize = TfidfVectorizer(stop_words='english')
-var = initialize.fit_transform(data.genre)
-dist = linear_kernel(var,var) #finding correlation distance
+tfid = TfidfVectorizer(stop_words='english')
+vector = tfid.fit_transform(data.genre)
+
 index = pd.Series(data=data.index,index=data.name)
 
-def recommender(name,n):
+# def recommender(name,n):
+#     ind_name = index[name]
+#     val_name = list(enumerate(dist[ind_name]))
+#     val_name = sorted(val_name,key=lambda x:x[1],reverse=True)
+#     l=[]
+#     for i in range(1,n):
+#         l.append(data.name.loc[val_name[i][0]])
+#     return l 
+
+def recommender(name):
     ind_name = index[name]
-    val_name = list(enumerate(dist[ind_name]))
-    val_name = sorted(val_name,key=lambda x:x[1],reverse=True)
-    l=[]
-    for i in range(1,n):
-        l.append(data.name.loc[val_name[i][0]])
-    return l 
+    dis = linear_kernel(vector[ind_name],vector)
+    val_name = list((dis))
+    d = pd.DataFrame(val_name)
+    d = d.transpose()
+    d.columns = ["name"]
+    d =d.sort_values(by="name",ascending = False) 
+    l = []
+    for i in range(0,10):
+        l.append(data.name.loc[d.index[i]]) 
+    return l
 
 def genre_recommender(name,n):
     ind_name = index[name]
-    val_name = list(enumerate(dist[ind_name]))
-    val_name = sorted(val_name,key=lambda x:x[1],reverse=True)
-    l=[]
-    for i in range(1,n):
-        l.append(data.genre.loc[val_name[i][0]])
+    dis = linear_kernel(vector[ind_name],vector)
+    val_name = list((dis))
+    d = pd.DataFrame(val_name)
+    d = d.transpose()
+    d.columns = ["name"]
+    d =d.sort_values(by="name",ascending = False) 
+    l = []
+    for i in range(0,10):
+        l.append(data.genre.loc[d.index[i]]) 
     return l  
 
 def rating_recommender(name,n):
     ind_name = index[name]
-    val_name = list(enumerate(dist[ind_name]))
-    val_name = sorted(val_name,key=lambda x:x[1],reverse=True)
-    l=[]
-    for i in range(1,n):
-        l.append(data.rating.loc[val_name[i][0]])
+    dis = linear_kernel(vector[ind_name],vector)
+    val_name = list((dis))
+    d = pd.DataFrame(val_name)
+    d = d.transpose()
+    d.columns = ["name"]
+    d =d.sort_values(by="name",ascending = False) 
+    l = []
+    for i in range(0,10):
+        l.append(data.rating.loc[d.index[i]]) 
     return l    
 
 def checker(name):
