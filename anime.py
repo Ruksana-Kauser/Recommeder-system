@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer #gives vector values converting word to numbers
 from sklearn.metrics.pairwise import linear_kernel #distance calculation
 
-data = pd.read_csv('anime_new')
+data = pd.read_csv('anime_new.csv')
 data.genre.fillna(" ",inplace=True) #filling null values with space
 
 tfid = TfidfVectorizer(stop_words='english')
